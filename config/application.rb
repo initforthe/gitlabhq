@@ -31,6 +31,7 @@ module Gitlab
                                      :project_observer,
                                      :system_hook_observer,
                                      :user_observer,
+                                     :event_observer,
                                      :users_project_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

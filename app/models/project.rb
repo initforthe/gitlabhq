@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
 
   class TransferError < StandardError; end
 
-  attr_accessible :name, :path, :description, :default_branch, :issues_enabled,
+  attr_accessible :name, :path, :description, :default_branch, :issues_enabled, :hipchat_room_id,
                   :wall_enabled, :merge_requests_enabled, :wiki_enabled, as: [:default, :admin]
 
   attr_accessible :namespace_id, :owner_id, as: :admin

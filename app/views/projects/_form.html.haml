@@ -9,6 +9,13 @@
       Project name is
     .input
       = f.text_field :name, placeholder: "Example Project", class: "xxlarge"
+
+  .clearfix
+    = f.label :hipchat_room_id do
+      %span.cgray Hipchat room name (Exact) 
+    .input
+      = f.text_field :hipchat_room_id, placeholder: ''
+
   %fieldset
     %legend  Advanced settings:
     .control-group

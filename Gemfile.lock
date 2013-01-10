@@ -226,6 +226,8 @@ GEM
       blankslate
     hashie (1.2.0)
     hike (1.2.1)
+    hipchat-api (1.0.5)
+      httparty
     http_parser.rb (0.5.3)
     httparty (0.9.0)
       multi_json (~> 1.0)
@@ -486,6 +488,7 @@ DEPENDENCIES
   guard-rspec
   guard-spinach
   haml-rails (~> 0.3.5)
+  hipchat-api
   httparty
   jquery-atwho-rails (= 0.1.7)
   jquery-rails (= 2.1.3)

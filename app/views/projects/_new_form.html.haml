@@ -9,6 +9,13 @@
       = f.text_field :name, placeholder: "Example Project", class: "xxlarge"
       = f.submit 'Create project', class: "btn primary project-submit"
 
+  .clearfix
+    = f.label :hipchat_room_id do
+      %span.cgray Hipchat room name (Exact) 
+    .input
+      = f.text_field :hipchat_room_id, placeholder: ''
+
+
   - if current_user.several_namespaces?
     .clearfix
       = f.label :namespace_id do

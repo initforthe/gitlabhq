@@ -44,6 +44,13 @@ class Event < ActiveRecord::Base
   # For Hash only
   serialize :data
 
+  after_save :log_me_something
+
+  def log_me_something
+    puts "After save hooks work"
+    puts "Project: #{project.inspect}" 
+  end
+
   # Scopes
   scope :recent, order("created_at DESC")
   scope :code_push, where(action: Pushed)

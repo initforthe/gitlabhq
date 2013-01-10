@@ -14,6 +14,8 @@ gem "rails", "3.2.9"
 gem "mysql2", group: :mysql
 gem "pg", group: :postgres
 
+gem 'hipchat-api'
+
 # Auth
 gem "devise", "~> 2.1.0"
 gem 'omniauth', "~> 1.1.1"
