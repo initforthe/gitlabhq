@@ -1,26 +1,33 @@
 class EventObserver < ActiveRecord::Observer
+  include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
 
   observe :event
 
-  HIPCHAT = HipChat::API.new(Gitlab.config.notifications.hipchat_api_key)
-
-  puts "EValuating"
-
   def after_save(event)
-    puts "SAve event"
-    `echo 'yousucksave' >> YOU_SUCK.what`
   end
 
   def after_create(event)
-    `echo 'yousuckcreate' >> YOU_SUCK.what`
-    puts "Create event"
-    if event.project && !event.project.hipchat_room_id.blank?
-      puts "Event #{event.inspect}"
-      HIPCHAT.rooms_message(event.project.hipchat_room_id, 'Gitlab', event.title, 1, 'blue')
+    project = event.project
+    if project.try(:hipchat_room_id).present?
+      hipchat = HipChat::API.new(Gitlab.config.notifications.hipchat_api_key)
+      if event.push_with_commits?
+        event.commits.each do |commit|
+          commit = CommitDecorator.decorate(commit)
+          url = project_commit_url(project, commit, host: Gitlab.config.web.host)
+          message = %{#{project.name}: <a href="#{url}">#{commit.short_id(8)}</a>: #{commit.author_name}: #{truncate(commit.title, length: 50)}}
+          log_info hipchat.rooms_message(event.project.hipchat_room_id, 'Gitlab', message, 1, 'yellow').inspect
+        end
+      end
     end
-  rescue
-    puts $!.message
-    puts $!.backtrace.join('\n')
+  rescue Exception => e
+    log_info e.message
+    log_info e.backtrace.join('\n')
   end
 
+  protected
+
+  def log_info message
+    Gitlab::AppLogger.info message
+  end
 end

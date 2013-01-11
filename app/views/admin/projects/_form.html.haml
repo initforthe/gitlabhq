@@ -11,6 +11,12 @@
     .input
       = f.text_field :name, placeholder: "Example Project", class: "xxlarge"
 
+  .clearfix
+    = f.label :hipchat_room_id do
+      %span.cgray Hipchat room ID
+    .input
+      = f.text_field :hipchat_room_id, placeholder: ''
+
   %fieldset.adv_settings
     %legend Advanced settings:
     .clearfix
